@@ -374,25 +374,23 @@
       return;
     }
 
-    fetch("https://formspree.io/f/mqpaldro", {
-      method: "POST",
-      headers: { Accept: "application/json" },
-      body: new FormData(form),
-    })
-      .then((res) => {
-        if (res.ok) {
-          showStatus(
-            "Žádost byla odeslána. VEXVER ji zkontroluje a připraví nabídku.",
-            true
-          );
-          form.querySelector('button[type="submit"]').textContent = "REQUEST READY";
-        } else {
-          showStatus("Něco se nepovedlo. Zkus to prosím znovu, nebo napiš na e-mail.", false);
-        }
-      })
-      .catch(() => {
-        showStatus("Něco se nepovedlo. Zkus to prosím znovu, nebo napiš na e-mail.", false);
-      });
+    /* ----------------------------------------------------------
+       BACKEND HOOK — replace this block to actually send data.
+       Example (Formspree):
+         fetch("https://formspree.io/f/XXXX", {
+           method: "POST",
+           headers: { "Accept": "application/json" },
+           body: new FormData(form),
+         }).then(...);
+    ---------------------------------------------------------- */
+    const payload = Object.fromEntries(new FormData(form).entries());
+    console.log("[v0] VEXVER request payload:", payload);
+
+    showStatus(
+      "Žádost je připravena. VEXVER ji zkontroluje a připraví nabídku.",
+      true
+    );
+    form.querySelector('button[type="submit"]').textContent = "REQUEST READY";
   });
 
   function showStatus(msg, ok) {
