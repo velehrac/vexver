@@ -327,11 +327,11 @@
         .join("") +
       "</dl>";
 
-    // Machine-readable payload for a future backend
-    configHidden.value = JSON.stringify({
-      service: SERVICE_LABELS[activeService],
-      details: rows,
-    });
+    // Human-readable plain-text summary — this is what shows up in the email
+    const summaryLines = [`Služba: ${SERVICE_LABELS[activeService]}`].concat(
+      rows.map((r) => `${r.label}: ${r.value}`)
+    );
+    configHidden.value = summaryLines.join("\n");
 
     summaryWrap.hidden = false;
   }
