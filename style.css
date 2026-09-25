@@ -45,6 +45,9 @@ body {
 }
 
 img { max-width: 100%; display: block; }
+
+/* Top-left nav logo only — intentionally tiny per request */
+.nav .brand img { max-width: 7%; }
 a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; }
 
